@@ -150,6 +150,7 @@ def parse_train_data(imaging_data, gene_data, covariate, random_seed, data_fract
 	indices_cn = np.random.choice(n_cn_data, int(data_fraction*n_cn_data), replace=False)
 	cn_data = imaging_data.loc[imaging_data['diagnosis'] == -1].drop(['participant_id','diagnosis'], axis=1).values[indices_cn]
 	pt_data = imaging_data.loc[imaging_data['diagnosis'] !=- 1].drop(['participant_id','diagnosis'], axis=1).values[indices_pt]
+	gene_data = imaging_data['participant_id'].merge(gene_data,on='participant_id')
 	gene_data_fillna = gene_data.fillna(gene_data.mean())
 	gene_data = gene_data.drop(['participant_id'], axis=1).values[indices_pt]
 	gene_data_fillna = gene_data_fillna.drop(['participant_id'], axis=1).values[indices_pt]
