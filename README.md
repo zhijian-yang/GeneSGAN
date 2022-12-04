@@ -53,7 +53,7 @@ subject-1         0       1
 subject-2         1       0
 subject-3         1       0
 subject-4         0       0
-subject-5	      2       0
+subject-5	    2       0
 subject-6         0       2
 ```
 
