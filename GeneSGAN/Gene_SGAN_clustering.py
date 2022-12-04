@@ -185,7 +185,7 @@ def cross_validated_clustering(imaging_data, gene_data, ncluster, fold_number, f
 				print("****** Model not converged at max interation, Start retraining ******")
 				converge = Gene_SGAN_model.train(saved_model_name, imaging_data, gene_data, covariate, output_dir, random_seed=i, data_fraction = fraction, verbose = verbose)
 
-	cluster_label, cluster_prob, mean_ari, std_ari, mean_n_sig_snp, std_n_sig_snp = clustering_result(saved_models, ncluster, imaging_data, gene_data, fraction=fraction, covariate)
+	cluster_label, cluster_prob, mean_ari, std_ari, mean_n_sig_snp, std_n_sig_snp = clustering_result(saved_models, ncluster, imaging_data, gene_data, fraction = fraction, covariate = covariate)
 	
 	pt_data = imaging_data.loc[imaging_data['diagnosis'] != -1][['participant_id','diagnosis']]
 	pt_data['cluster_label'] = cluster_label + 1

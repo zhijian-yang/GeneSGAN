@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="zhijian.yang",
     author_email="zhijianyang@outlook.com",
-    description="A python implementation of Gene-SGAN for multi-view semisupervised clustering",
+    description="A python implementation of Gene-SGAN for multi-view semi-supervised clustering",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/zhijian-yang/GeneSGAN",
