@@ -78,7 +78,7 @@ from GeneSGAN.Gene_SGAN_clustering import cross_validated_clustering, clustering
 
 timage_data = pd.read_csv('toy_data_imaging.csv')
 gene_data = pd.read_csv('toy_data_gene.csv')
-covariate = pd.read_csv('train_cov.csv')
+covariate = pd.read_csv('covariate.csv')
 
 output_dir = "PATH_OUTPUT_DIR"
 ncluster = 3
@@ -93,7 +93,7 @@ cluster_loss = 0.01
 ## three hyper-parameter to be tuned
 genelr = 0.0002
 lam = 9
-mu =5
+mu = 5
 ```
 
 When using the package, ***genelr***, ***WD***, ***AQ***, ***cluster\_loss***, ***batch\_size*** need to be chosen empirically:
@@ -138,16 +138,6 @@ If you use this package for research, please cite the following paper:
 
 
 ```bash
-@article{yang2021BrainHeterogeneity,
-author = {Yang, Zhijian and Nasrallah, Ilya M. and Shou, Haochang and Wen, Junhao and Doshi, Jimit and Habes, Mohamad and Erus, Guray and Abdulkadir, Ahmed and Resnick, Susan M. and Albert, Marilyn S. and Maruff, Paul and Fripp, Jurgen and Morris, John C. and Wolk, David A. and Davatzikos, Christos and {iSTAGING Consortium} and {Baltimore Longitudinal Study of Aging (BLSA)} and {Alzheimer’s Disease Neuroimaging Initiative (ADNI)}},
-year = {2021},
-month = {12},
-pages = {},
-title = {A deep learning framework identifies dimensional representations of Alzheimer’s Disease from brain structure},
-volume = {12},
-journal = {Nature Communications},
-doi = {10.1038/s41467-021-26703-z}
-}
 ```
 
 
