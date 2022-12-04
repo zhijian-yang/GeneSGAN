@@ -11,7 +11,7 @@ setuptools.setup(
     description="A python implementation of Gene-SGAN for multi-view semisupervised clustering",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/zhijian-yang/SmileGAN",
+    url="https://github.com/zhijian-yang/GeneSGAN",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3",
@@ -24,7 +24,8 @@ setuptools.setup(
         'torch==1.10.2',
         'scikit-learn>=0.24.2',
         'scipy>=1.8.0',
-        'pandas>=1.4.2'
+        'pandas>=1.4.2',
+        'rpy2==3.5.1'
     ]
 )
 
