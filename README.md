@@ -68,7 +68,7 @@ subject-6            1         62.5   0
 ```
 
 ## Example
-We offer a toy dataset in the folder of GeneSGAN/datasets.
+We offer a toy dataset, the ground truth, and the sample code in the folder GeneSGAN/datasets. One fold training takes around 25 minutes on a MacBook Pro with 1.4GHz Intel Core i5, and could lead to clustering with around 95% accuracy. A larger fold number could contribute to better clustering performances, so 20 folds or above is recommended in real data applications. Multiple folds can be performed in parallel on HPC clusters.
 
 ```bash
 import pandas as pd
@@ -136,6 +136,16 @@ If you use this package for research, please cite the following paper:
 
 
 ```bash
+@misc{yang2023genesgan,
+  doi = {10.48550/ARXIV.2301.10772},
+  url = {https://arxiv.org/abs/2301.10772},
+  author = {Yang, Zhijian and Wen, Junhao and Abdulkadir, Ahmed and Cui, Yuhan and Erus, Guray and Mamourian, Elizabeth and Melhem, Randa and Srinivasan, Dhivya and Govindarajan, Sindhuja T. and Chen, Jiong and Habes, Mohamad and Masters, Colin L. and Maruff, Paul and Fripp, Jurgen and Ferrucci, Luigi and Albert, Marilyn S. and Johnson, Sterling C. and Morris, John C. and LaMontagne, Pamela and Marcus, Daniel S. and Benzinger, Tammie L. S. and Wolk, David A. and Shen, Li and Bao, Jingxuan and Resnick, Susan M. and Shou, Haochang and Nasrallah, Ilya M. and Davatzikos, Christos},  
+  title = {Gene-SGAN: a method for discovering disease subtypes with imaging and genetic signatures via multi-view weakly-supervised deep clustering},  
+  publisher = {arXiv},  
+  year = {2023},  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
 ```
 
 

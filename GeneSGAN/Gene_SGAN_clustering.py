@@ -87,9 +87,8 @@ def clustering_result(model_dirs, ncluster, imaging_data, gene_data, fraction=0.
 		all_prediction_labels.append(np.argmax(model.predict_cluster(validation_data), axis=1))
 		all_prediction_probabilities.append(model.predict_cluster(validation_data))
 
-	if len(model_dirs) > 1:
-		mean_ari, std_ari = calculate_ari(all_prediction_labels)
-		print("Results have Adjuested_random_index (ARI) = %.2f+- %.2f" %(mean_ari, std_ari))
+	mean_ari, std_ari = calculate_ari(all_prediction_labels)
+	print("Results have Adjuested_random_index (ARI) = %.2f+- %.2f" %(mean_ari, std_ari))
 
 	mean_n_sig_snps, std_n_sig_snps = n_sig_calculation(model_dirs,imaging_data,covariate,gene_data, fraction)
 			
@@ -154,7 +153,7 @@ def cross_validated_clustering(imaging_data, gene_data, ncluster, fold_number, f
 		cluster_loss_threshold, lam=lam, mu=mu, kappa = kappa, batchSize=batchSize, \
 		lipschitz_k = lipschitz_k, beta1 = beta1, lr = lr, genelr = genelr, max_gnorm = max_gnorm, eval_freq = eval_freq, save_epoch_freq = save_epoch_freq)
 
-	saved_models = [os.path.join(output_dir, 'converged_model_fold'+str(i+1)) for i in range(fold_number+1)]
+	saved_models = [os.path.join(output_dir, 'converged_model_fold'+str(i)) for i in range(fold_number)]
 	
 	if stop_fold == None:
 		stop_fold = fold_number

@@ -10,6 +10,7 @@ if __name__ == '__main__':
 	image_data = pd.read_csv('toy_data_imaging.csv')
 	gene_data = pd.read_csv('toy_data_gene.csv')
 
+	fold_number = 1
 	ncluster = 3
 	start_saving_epoch = 20000
 	max_epoch = 30000
@@ -19,7 +20,7 @@ if __name__ == '__main__':
 	genelr = 0.0002
 
 
-	cross_validated_clustering(image_data, gene_data, ncluster, 20, 0.8, start_saving_epoch, max_epoch, output_dir, WD, AQ, cluster_loss,\
+	cross_validated_clustering(image_data, gene_data, ncluster, fold_number, 0.8, start_saving_epoch, max_epoch, output_dir, WD, AQ, cluster_loss,\
 		genelr = 0.0002, batchSize=120, lipschitz_k=0.5)
 
 
