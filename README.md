@@ -1,5 +1,5 @@
 # Gene-SGAN
-Gene-SGAN is a multi-view semi-supervised clustering method for disentangling disease heterogeneity. By jointly considering brain phenotypic and genetic data, Gene-SGAN identify disease subtypes with associated phenotypic and genetic signatures. Using healthy control (HC) populations as a referece distribution, the model effectively cluster participants based disease-related phenotypic variations with genetic associations, thus avoiding confounders from disease-unrelated factors.
+Gene-SGAN is a multi-view semi-supervised clustering method for disentangling disease heterogeneity. By jointly considering brain phenotypic and genetic data, Gene-SGAN identifies disease subtypes with associated phenotypic and genetic signatures. Using healthy control (HC) populations as a reference distribution, the model effectively clusters participants based on disease-related phenotypic variations with genetic associations, thus avoiding confounders from disease-unrelated factors.
 
 
 ![image info](./datasets/Gene-SGAN.png)
@@ -8,9 +8,10 @@ Gene-SGAN is a multi-view semi-supervised clustering method for disentangling di
 Copyright (c) 2016 University of Pennsylvania. All rights reserved. See[ https://www.cbica.upenn.edu/sbia/software/license.html](https://www.cbica.upenn.edu/sbia/software/license.html)
 
 ## Installation
-We highly recommend the users to install **Anaconda3** on your machine. After installing Anaconda3, Smile-GAN can be used following this procedure:
+We highly recommend that users install **Anaconda3** on their machines. After installing Anaconda3, Smile-GAN can be used following this procedure:
 
-We recommend the users to use the Conda virtual environment:
+We recommend that users use the Conda virtual environment:
+
 
 ```bash
 $ conda create --name genesgan python=3.8
@@ -29,10 +30,10 @@ $ pip install GeneSGAN
 
 
 ## Input structure
-Main functions of GeneSGAN basically takes three panda dataframes as data inputs, **imaging_data**, **gene_data**, and **covariate** (optional). Columns with name *'participant_id'* and *diagnosis* must exist in **imaging_data** and **covariate**. Some conventions for the group label/diagnosis: -1 represents healthy control (HC) and 1 represents patient (PT); categorical variables, such as sex, should be encoded to numbers: Female for 0 and Male for 1, for example. 
+The main functions of GeneSGAN basically take three Panda dataframes as data inputs: imaging_data, **imaging_data**, **gene_data**, and **covariate** (optional). Columns with the names *'participant_id'* and *diagnosis* must exist in **imaging_data** and **covariate**. Some conventions for the group label/diagnosis: -1 represents healthy control (HC) and 1 represents patient (PT); categorical variables, such as sex, should be encoded as numbers: Female for 0 and Male for 1, for example. 
 
 Genetic features of all PT but not HC participants in the **imaging_data** need to be provided, so **gene_data** should not have the column *diagnosis*.
-The current package only takes SNP data as genetic features, and each SNP variant in **gene_data** need to be recoded into 0, 1, or 2 indicating the number of minor alleles. 
+The current package only takes SNP data as genetic features, and each SNP variant in **gene_data** needs to be recoded into 0, 1, or 2, indicating the number of minor alleles. 
 
 Example for **imaging_data**:
 
@@ -68,7 +69,7 @@ subject-6            1         62.5   0
 ```
 
 ## Example
-We offer a toy dataset, the ground truth, and the sample code in the folder GeneSGAN/datasets. One fold training takes around 25 minutes on a MacBook Pro with 1.4GHz Intel Core i5, and could lead to clustering with around 95% accuracy. A larger fold number could contribute to better clustering performances, so 20 folds or above is recommended in real data applications. Multiple folds can be performed in parallel on HPC clusters.
+We offer a toy dataset, the ground truth, and the sample code in the folder GeneSGAN/datasets. One-fold training takes around 25 minutes on a MacBook Pro with a 1.4GHz Intel Core i5 and could lead to clustering with around 95% accuracy. A larger fold number could contribute to better clustering performances, so 20 folds or above is recommended in real data applications. Multiple folds can be performed in parallel on HPC clusters.
 
 ```bash
 import pandas as pd
@@ -96,21 +97,22 @@ mu = 5
 
 When using the package, ***genelr***, ***WD***, ***AQ***, ***cluster\_loss***, ***batch\_size*** need to be chosen empirically:
 
-***genelr***: genelr (i.e., learning rate of gene step) is the most important hyper-parameter of the model. It is **necessary** to be set to different values, and the value leading to the highest mean N-Asso-SNPs should be used. (**Recommended value**: 0.0004-0.0001)
+***genelr***: genelr (i.e., learning rate of the gene step) is the most important hyper-parameter of the model. It is **necessary** to set it to different values, and the value leading to the highest mean N-Asso-SNPs should be used. (**Recommended value**: 0.0004-0.0001).
 
 ***WD***: Wasserstein Distance measures the distance between generated PT data along each direction and real PT data. (**Recommended value**: 0.11-0.14)
 
-***AQ***: Alteration Quantity measures the number of participants who change cluster labels during last three traninig epochs. Low AQ implies convergence of training. (**Recommended value**: 1/20 of PT sample size)
+***AQ***: Alteration Quantity measures the number of participants who change cluster labels during the last three training epochs. Low AQ implies convergence in training. (**Recommended value**: 1/20 of the PT sample size)
 
-***cluster\_loss***: Cluster loss measures how well clustering function reconstruct sampled Z variable. (**Recommended value**: 0.01-0.015)
+***cluster\_loss***: Cluster loss measures how well the clustering function reconstructs the sampled Z variable. (**Recommended value**: 0.01-0.015)
 
-***batch\_size***: Size of the batch for each training epoch. (Default to be 25) It is **necessary** to be reset to 1/8 of the PT sample size.
+***batch\_size***: Size of the batch for each training epoch. (Default to be 25) It is **necessary** to reset it to 1/8 of the PT sample size.
 
 Some other parameters, ***lam***, ***mu*** have default values but need to be changed in some cases:
 
-***lam***: coefficient controlling the relative importance of cluster\_loss in the training objective function. (Default to be 9) 
+***lam***: coefficient controlling the relative importance of cluster\_loss in the training objective function. (Default to be 9).
 
 ***mu***: coefficient controlling the relative importance of change\_loss in the training objective function. (Default to be 5).
+
 
 
 ```bash				    
@@ -120,15 +122,15 @@ cross_validated_clustering(imaging_data, gene_data, ncluster, fold_number, data_
 					    output_dir, WD, AQ, cluster_loss, genelr = genelr, lam = lam, mu = mu, covariate=covariate)
 ```
 
-**cross\_validated\_clustering** performs clustering with hold-out cross validation. It is the ***main*** function for clustering. Since the CV process may take long training time on a normal desktop computer, the function enables early stop and later resumption. Users can set ***stop\_fold*** to be early stopping point and ***start\_fold*** depending on previous stopping point. By setting ***stop\_fold*** to ***start\_fold***+1, users can run multiple iterations **in parellel**, which will significantly reduce the training time.
+**cross\_validated\_clustering** performs clustering with hold-out cross validation. It is the ***main*** function for clustering. Since the CV process may take a long training time on a normal desktop computer, the function enables an early stop and later resumption. Users can set ***stop\_fold*** to be an early stopping point and ***start\_fold*** depending on the previous stopping point. By setting ***stop\_fold*** to ***start\_fold***+1, users can run multiple iterations **in parellel**, which will significantly reduce the training time.
 
-The function automatically saves an csv file with clustering results. Two metrics are also provided for hyper-parameter selection: the mean ARI value (i.e., agreements of clusters among all folds), and the mean N-Asso-SNPs (i.e., number of SNPs associated with derived subtypes in test sets).
+The function automatically saves a CSV file with clustering results. Two metrics are also provided for hyper-parameter selection: the mean ARI value (i.e., agreements of clusters among all folds) and the mean N-Asso-SNPs (i.e., number of SNPs associated with derived subtypes in test sets).
 
 ```					    
 model_dirs = ['PATH_TO_CHECKPOINT1','PATH_TO_CHECKPOINT2',...] #list of paths to previously saved checkpoints (with name 'converged_model_foldk' after cv process)
 cluster_label, cluster_probabilities, _, _, _, _ = clustering_result(model_dirs, ncluster, imaging_data, gene_data, covariate = covariate)
 ```
-**clustering\_result** is a function used for clustering patient data using previously saved models. **imaging_data** and **covariate** (optional) should be panda dataframe with same format as introduced before. Only PT data (can be inside or outside of training set), for which the user want to derive subtype memberships, need to be provided with diagnoses set to be 1. **gene_data** is not required when applying the trained models. ***The function returns cluster labels of PT data following the order of PT in the provided dataframe.***
+**clustering\_result** is a function used for clustering patient data using previously saved models. **imaging_data** and **covariate** (optional) should be Panda dataframes with the same format as introduced before. Only PT data (which can be inside or outside of the training set) for which the user wants to derive subtype memberships needs to be provided with diagnoses set to 1. **gene_data** is not required when applying the trained models. ***The function returns cluster labels of PT data following the order of PT in the provided dataframe.***
 
 
 ## Citation
